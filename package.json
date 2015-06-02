@@ -16,7 +16,8 @@
   "keywords": [
     "postcss",
     "grid",
-    "css"
+    "css",
+	"postcss-plugin"
   ],
   "author": "Andy Jansson",
   "license": "MIT",
