@@ -52,12 +52,12 @@ module.exports = postcss.plugin('postcss-grid', function (opts) {
 					var span = match[1];
 					var columns = match[2];
 					
-					decl.parent.append({prop: 'float', value: 'left'});
-					decl.parent.append({prop: 'width', value: gridWidth(span, columns) + '%'});
+					decl.parent.append({prop: 'float', value: 'left'}).source = decl.source;
+					decl.parent.append({prop: 'width', value: gridWidth(span, columns) + '%'}).source = decl.source;
 					
 					if (!(decl.value.match(isLast))) {
-						decl.parent.append({prop: 'display', value: 'inline'});
-						decl.parent.append({prop: 'margin-right', value: gutterWidth(columns) + '%'});
+						decl.parent.append({prop: 'display', value: 'inline'}).source = decl.source;
+						decl.parent.append({prop: 'margin-right', value: gutterWidth(columns) + '%'}).source = decl.source;
 					}
 					decl.removeSelf();
 				}
@@ -75,7 +75,7 @@ module.exports = postcss.plugin('postcss-grid', function (opts) {
 					decl.parent.append({
 						prop: decl.prop === 'grid-push' ? 'margin-left' : 'margin-right', 
 						value: width + '%'
-					});
+					}).source = decl.source;
 					decl.removeSelf();
 				}
 				else {
