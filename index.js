@@ -1,0 +1,87 @@
+var postcss = require('postcss'),
+	functionCall = require('reduce-function-call');
+	
+module.exports = postcss.plugin('postcss-grid', function (opts) {
+	opts = opts || {};
+	opts.columns = opts.columns || 12;
+	opts.maxWidth = opts.maxWidth || 960;
+	opts.gutter = opts.gutter || 20;
+	
+	var columnWidth = (opts.maxWidth - ((opts.columns -1 ) * opts.gutter)) / opts.columns;
+	
+	var gridWidth = function (span, cols) {
+		var width = span * columnWidth + (span -1 ) * opts.gutter;
+		var container = cols * columnWidth + (cols -1) * opts.gutter;
+		return ((width  / container) * 100).toFixed(5) * 1;
+	};
+	
+	var gutterWidth = function (cols) {
+		var width = cols * columnWidth + (cols - 1) * opts.gutter;
+		return ((opts.gutter / width) * 100).toFixed(5) * 1;
+	};
+	
+	var value = /\s*(\d+)\s*\/\s*(\d+)\s*/;
+	var isLast = /\s*!last\s*$/;
+
+	return function (css) {
+		css.eachDecl(function (decl) {
+			if (decl.value.indexOf('grid-width(') !== -1) {
+				decl.value = functionCall(decl.value, "grid-width", function (body) {
+					var match;
+					
+					if (match = value.exec(body)) {
+						var span = match[1];
+						var columns = match[2];
+						return gridWidth(span, columns) + '%'
+					}
+					else {
+						throw decl.error('Invalid declaration', { plugin: 'postcss-grid' });
+					}
+				});
+			}
+			if (decl.value.indexOf('grid-gutter(') !== -1) {
+				decl.value = functionCall(decl.value, "grid-gutter", function (body) {
+					return gutterWidth(body) + '%'
+				});
+			}
+			
+			if (decl.prop === 'grid-column') {
+				var match;
+				
+				if (match = value.exec(decl.value)) {
+					var span = match[1];
+					var columns = match[2];
+					
+					decl.parent.append({prop: 'float', value: 'left'});
+					decl.parent.append({prop: 'width', value: gridWidth(span, columns) + '%'});
+					
+					if (!(decl.value.match(isLast))) {
+						decl.parent.append({prop: 'display', value: 'inline'});
+						decl.parent.append({prop: 'margin-right', value: gutterWidth(columns) + '%'});
+					}
+					decl.removeSelf();
+				}
+				else {
+					throw decl.error('Invalid declaration', { plugin: 'postcss-grid' });
+				}
+			}
+			if (decl.prop === 'grid-push' || decl.prop === 'grid-pull') {
+				var match;
+				
+				if (match = value.exec(decl.value)) {
+					var span = match[1];
+					var columns = match[2];
+					var width = span * gridWidth(1, columns) + span * gutterWidth(columns);
+					decl.parent.append({
+						prop: decl.prop === 'grid-push' ? 'margin-left' : 'margin-right', 
+						value: width + '%'
+					});
+					decl.removeSelf();
+				}
+				else {
+					throw decl.error('Invalid declaration', { plugin: 'postcss-grid' });
+				}
+			}
+		});
+	};
+});

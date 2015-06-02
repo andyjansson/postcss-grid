@@ -1,0 +1,32 @@
+{
+  "name": "postcss-grid",
+  "version": "1.0.0",
+  "description": "A semantic grid system for PostCSS",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andyjansson/postcss-grid.git"
+  },
+  "keywords": [
+    "postcss",
+    "grid",
+    "css"
+  ],
+  "author": "Andy Jansson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andyjansson/postcss-grid/issues"
+  },
+  "homepage": "https://github.com/andyjansson/postcss-grid#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "postcss": "^4.1.11",
+    "reduce-function-call": "^1.0.1"
+  }
+}
