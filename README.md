@@ -28,7 +28,7 @@ var options = {
 };
 
 var output = postcss()
-  .use(grid(options)
+  .use(grid(options))
   .process(css)
   .css;
 ```

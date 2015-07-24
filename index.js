@@ -1,11 +1,13 @@
 var postcss = require('postcss'),
-	functionCall = require('reduce-function-call');
+	functionCall = require('reduce-function-call'),
+	extend = require('util')._extend;
 	
 module.exports = postcss.plugin('postcss-grid', function (opts) {
-	opts = opts || {};
-	opts.columns = opts.columns || 12;
-	opts.maxWidth = opts.maxWidth || 960;
-	opts.gutter = opts.gutter || 20;
+	opts = extend({
+		columns: 12,
+		maxWidth: 960,
+		gutter: 20
+	}, opts);
 	
 	var columnWidth = (opts.maxWidth - ((opts.columns -1 ) * opts.gutter)) / opts.columns;
 	
