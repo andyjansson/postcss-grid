@@ -1,3 +1,7 @@
+# 2.0.0 - 2015-09-19
+* Update PostCSS dependency
+* Add legacy option
+
 # 1.0.2 - 2015-07-24
 * Fix for zero-value options
 
