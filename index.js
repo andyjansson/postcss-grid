@@ -6,7 +6,8 @@ module.exports = postcss.plugin('postcss-grid', function (opts) {
 	opts = extend({
 		columns: 12,
 		maxWidth: 960,
-		gutter: 20
+		gutter: 20,
+		legacy: false
 	}, opts);
 
 	var columnWidth = (opts.maxWidth - ((opts.columns -1 ) * opts.gutter)) / opts.columns;
@@ -58,7 +59,7 @@ module.exports = postcss.plugin('postcss-grid', function (opts) {
 					decl.parent.append({prop: 'width', value: gridWidth(span, columns) + '%'}).source = decl.source;
 
 					if (!(decl.value.match(isLast))) {
-						decl.parent.append({prop: 'display', value: 'inline'}).source = decl.source;
+						if (opts.legacy) decl.parent.append({prop: 'display', value: 'inline'}).source = decl.source;
 						decl.parent.append({prop: 'margin-right', value: gutterWidth(columns) + '%'}).source = decl.source;
 					}
 					decl.remove();

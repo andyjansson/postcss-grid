@@ -24,7 +24,8 @@ var css = fs.readFileSync('input.css', 'utf8');
 var options = {
   columns: 12, // the number of columns in the grid
   maxWidth: 960, // the maximum width of the grid (in px)
-  gutter: 20 // the width of the gutter (in px)
+  gutter: 20, // the width of the gutter (in px)
+  legacy: false // fixes the double-margin bug in older browsers. Defaults to false
 };
 
 var output = postcss()
@@ -33,7 +34,7 @@ var output = postcss()
   .css;
 ```
 
-### Columns 
+### Columns
 
 Columns are created by using the `grid-column` declaration and passing a `/`-delimited value. This value contains the number of columns the element should span, separated by the total number of columns in the element's container.
 
@@ -52,7 +53,6 @@ Turns into:
 .element{
   float: left;
   width: 6.42361%;
-  display: inline;
   margin-right: 2.08333%;
 }
 ```
@@ -78,7 +78,7 @@ Turns into:
 
 ### Offsetting elements
 
-Elements can be offset to the left and the right by using `grid-pull` and `grid-push`. 
+Elements can be offset to the left and the right by using `grid-pull` and `grid-push`.
 
 **Example**:
 
@@ -123,4 +123,3 @@ Turns into:
   margin-left: 2.08333%;
 }
 ```
-
