@@ -17,7 +17,7 @@
     "postcss",
     "grid",
     "css",
-	"postcss-plugin"
+    "postcss-plugin"
   ],
   "author": "Andy Jansson",
   "license": "MIT",
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/andyjansson/postcss-grid#readme",
   "devDependencies": {},
   "dependencies": {
-    "postcss": "^4.1.11",
+    "postcss": "^5.0.5",
     "reduce-function-call": "^1.0.1"
   }
 }
