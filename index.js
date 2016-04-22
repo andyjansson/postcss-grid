@@ -29,8 +29,8 @@ module.exports = postcss.plugin('postcss-grid', function (opts) {
 		return ((opts.gutter / width) * 100).toFixed(5) * 1;
 	};
 	var gutterWidthExtended = function (cols, maxWidth, gutter) {
-		var columnWidth = (maxWidth - ((cols -1 ) * gutter)) / cols;
-		var width = cols * columnWidth + (cols - 1) * gutter;
+		var colWidth = (maxWidth - ((cols -1 ) * gutter)) / cols;
+		var width = cols * colWidth + (cols - 1) * gutter;
 		return ((gutter / width) * 100).toFixed(5) * 1;
 	};
 
