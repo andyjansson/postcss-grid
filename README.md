@@ -125,6 +125,6 @@ Turns into:
 ```
 ### Changes maxWidth and gutter
 
-You can drop to `grid-column`, `grid-push`, `grid-pull` next format of data `1/16/1170/30`.
+You can pass to `grid-column`, `grid-push`, `grid-pull` next format of data `1/16/1170/30`.
 Where first two params are the same as described before, but second two params is maxWidth of container and gutter.
 It is needed if your mockup has different grid in different responsive layers.
