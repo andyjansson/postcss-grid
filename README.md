@@ -123,3 +123,8 @@ Turns into:
   margin-left: 2.08333%;
 }
 ```
+### Change maxWidth and gutter on the fly
+
+You can pass to `grid-column`, `grid-push`, `grid-pull` next format of data `1/16/1170/30`.
+Where first two params are the same as described before, but second two params is maxWidth of container and gutter.
+It is needed if your mockup has different grid in different responsive layers.
